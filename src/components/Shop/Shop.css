@@ -2,17 +2,6 @@
   display: grid;
   grid-template-columns: 4fr 1fr;
 }
-.cart-container {
-  background-color: #ffe0b3;
-  text-align: center;
-}
-
-.cart-heading {
-  font-style: normal;
-  font-weight: 400;
-  font-size: 25px;
-  line-height: 30px;
-}
 
 .products-container {
   display: grid;
@@ -30,9 +19,5 @@
   .products-container {
     display: grid;
     grid-template-columns: repeat(1, 1fr);
-  }
-  .cart-container {
-    background-color: #ffe0b3;
-    padding: 20px;
   }
 }

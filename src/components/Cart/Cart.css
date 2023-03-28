@@ -1,0 +1,30 @@
+.cart-container {
+  background-color: #ffe0b3;
+  text-align: center;
+  padding: 25px;
+}
+
+.cart-heading {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 25px;
+  line-height: 30px;
+}
+
+.cart-container p {
+  font-size: 17px;
+}
+.cart-container h6 {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 21px;
+  line-height: 25px;
+  letter-spacing: 0.0015em;
+}
+
+@media only screen and (max-width: 600px) {
+  .cart-container {
+    background-color: #ffe0b3;
+    padding: 20px;
+  }
+}
