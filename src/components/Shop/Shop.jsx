@@ -4,19 +4,24 @@ import "./Shop.css";
 
 const Shop = () => {
   const [products, setProducts] = useState([]);
+
+  // state for event handler
+  const [cart, setCart] = useState([]);
+
   useEffect(() => {
     fetch("products.json")
       .then((res) => res.json())
       .then((data) => setProducts(data));
   }, []);
+
+  // event handler
+  const handleAddToCart = (product) => {
+    const newCart = [...cart, product];
+    setCart(newCart);
+  };
+
   return (
     <div className="shop-container">
-      <div className="">
-        <h2>Total Products: {products.length}</h2>
-      </div>
-      <div className="cart-container">
-        <h3>Order Summary</h3>
-      </div>
       <div className="products-container">
         {products.map((product) => {
           // console.log(product);
@@ -24,9 +29,14 @@ const Shop = () => {
             <DisplayProducts
               key={product.id}
               product={product}
+              handleAddToCart={handleAddToCart}
             ></DisplayProducts>
           );
         })}
+      </div>
+      <div className="cart-container">
+        <h5 className="cart-heading">Order Summary</h5>
+        <p>Selected Items: {cart.length}</p>
       </div>
     </div>
   );

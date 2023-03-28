@@ -14,3 +14,15 @@ nav.header a {
 nav.header a:hover {
   color: orange;
 }
+
+@media only screen and (max-width: 600px) {
+  .header {
+    height: 80px;
+    width: 100%;
+    background-color: #1c2b35;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0 100px;
+  }
+}

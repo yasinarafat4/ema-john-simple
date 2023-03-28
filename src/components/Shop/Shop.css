@@ -4,10 +4,35 @@
 }
 .cart-container {
   background-color: #ffe0b3;
+  text-align: center;
 }
+
+.cart-heading {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 25px;
+  line-height: 30px;
+}
+
 .products-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 45px;
   margin: 40px;
+}
+
+@media only screen and (max-width: 600px) {
+  .shop-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .products-container {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .cart-container {
+    background-color: #ffe0b3;
+    padding: 20px;
+  }
 }
