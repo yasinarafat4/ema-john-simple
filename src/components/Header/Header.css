@@ -1,5 +1,6 @@
 .header {
   height: 80px;
+  width: 85%;
   background-color: #1c2b35;
   display: flex;
   justify-content: space-between;
@@ -23,6 +24,5 @@ nav.header a:hover {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    padding: 0 100px;
   }
 }
