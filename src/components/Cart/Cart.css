@@ -1,6 +1,6 @@
 .cart-container {
   background-color: #ffe0b3;
-  text-align: center;
+  text-align: left;
   padding: 25px;
   position: sticky;
   top: 0;
@@ -28,4 +28,18 @@
   .cart-container {
     background-color: #ffe0b3;
   }
+}
+.btn-clear-cart {
+  width: 90%;
+  height: 56px;
+  margin: 10px auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 14px 0 14px;
+  background: #ff3030;
+  border-radius: 4px;
+  font-size: 21px;
+  color: #ffffff;
+  border: none;
 }
