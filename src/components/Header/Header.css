@@ -26,3 +26,18 @@ nav.header a:hover {
     align-items: center;
   }
 }
+
+.text-white {
+  color: #ffffff;
+  margin-left: 10px;
+}
+
+.btn-signout {
+  padding: 5px;
+  border-radius: 5px;
+}
+.btn-signout:hover {
+  padding: 5px;
+  border-radius: 5px;
+  background-color: orange;
+}
