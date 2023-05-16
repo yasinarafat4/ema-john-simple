@@ -21,11 +21,12 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Shop></Shop>,
+        loader: () => fetch("http://localhost:5000/totalProducts"),
       },
       {
         path: "orders",
         element: <Orders></Orders>,
-        // loader: () => fetch("products.json"),
+        // loader: () => fetch("http://localhost:5000/products"),
         loader: cardProductsLoader,
       },
       {

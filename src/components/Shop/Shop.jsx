@@ -7,18 +7,37 @@ import {
 import Cart from "../Cart/Cart";
 import DisplayProducts from "../DisplayProducts/DisplayProducts";
 import "./Shop.css";
-import { Link } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
 const Shop = () => {
   const [products, setProducts] = useState([]);
-
   // state for event handler
   const [cart, setCart] = useState([]);
 
+  // Determine the total number of item
+  const { totalProducts } = useLoaderData();
+
+  // Decide on the number of items per page
+  const productsPerPage = 15; // TODO: make it dynamic
+
+  // Calculate the total number of pages
+  const totalPages = Math.ceil(totalProducts / productsPerPage);
+
+  /*
+  const pageNumbers = [];
+  for (let i = 1; i <= totalPages; i++) {
+    pageNumbers.push(i);
+  }
+  */
+  //  Short-cut way
+  const pageNumbers = [...Array(totalPages).keys()];
+
+  console.log(totalProducts);
+
   useEffect(() => {
-    fetch("products.json")
+    fetch("http://localhost:5000/products")
       .then((res) => res.json())
       .then((data) => setProducts(data));
   }, []);
@@ -33,7 +52,7 @@ const Shop = () => {
     // step 1: get id by looping
     for (const id in storedCart) {
       // step 2: get the product using id by find()
-      const addedProduct = products.find((product) => product.id === id);
+      const addedProduct = products.find((product) => product._id === id);
       console.log(addedProduct);
 
       // step 3: get quantity of the product
@@ -55,19 +74,19 @@ const Shop = () => {
     >>if product doesn't exist in the cart, then set quantity = 1;
     >>if exist, update quantity by 1;*/
     let newCart = [];
-    const exist = cart.find((pd) => pd.id === product.id);
+    const exist = cart.find((pd) => pd._id === product._id);
     if (!exist) {
       product.quantity = 1;
       newCart = [...cart, product];
     } else {
       exist.quantity = exist.quantity + 1;
-      const remaining = cart.filter((pd) => pd.id !== product.id);
+      const remaining = cart.filter((pd) => pd._id !== product._id);
       newCart = [...remaining, exist];
     }
 
     setCart(newCart);
     // connect with local storage
-    addToDb(product.id);
+    addToDb(product._id);
   };
 
   const handelClearCart = () => {
@@ -76,29 +95,41 @@ const Shop = () => {
   };
 
   return (
-    <div className="shop-container">
-      <div className="products-container">
-        {products.map((product) => {
-          // console.log(product);
-          return (
-            <DisplayProducts
-              key={product.id}
-              product={product}
-              handleAddToCart={handleAddToCart}
-            ></DisplayProducts>
-          );
-        })}
+    <>
+      <div className="shop-container">
+        <div className="products-container">
+          {products.map((product) => {
+            // console.log(product);
+            return (
+              <DisplayProducts
+                key={product._id}
+                product={product}
+                handleAddToCart={handleAddToCart}
+              ></DisplayProducts>
+            );
+          })}
+        </div>
+        <div>
+          <Cart cart={cart} handelClearCart={handelClearCart}>
+            <Link to="/orders">
+              <button className="btn-review">
+                <span>Review Order</span>{" "}
+                <FontAwesomeIcon icon={faArrowRight} />
+              </button>
+            </Link>
+          </Cart>
+        </div>
       </div>
-      <div>
-        <Cart cart={cart} handelClearCart={handelClearCart}>
-          <Link to="/orders">
-            <button className="btn-review">
-              <span>Review Order</span> <FontAwesomeIcon icon={faArrowRight} />
-            </button>
-          </Link>
-        </Cart>
+
+      {/* Pagination Button */}
+      <div className="pagination">
+        {pageNumbers.map((number) => (
+          <button key={number} className="pagination-button">
+            {number}
+          </button>
+        ))}
       </div>
-    </div>
+    </>
   );
 };
 

@@ -33,4 +33,13 @@
 # For every time deploy
 1. npm run build
 2. firebase deploy
+
+What is Firebase
+
+# A product of Google
+# Helps developers to build apps faster and securely
+# No programming is required on the firebase side which makes it easy to use it's features more efficiently.
+# Provides services to android, ios, web, and unity. It provides cloud storage.
+# Uses NoSQL for the database for the storage of data
+
 */
