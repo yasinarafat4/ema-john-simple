@@ -38,11 +38,24 @@ const Shop = () => {
 
   console.log(totalProducts);
 
+  /* Previous useEffect
   useEffect(() => {
     fetch("http://localhost:5000/products")
       .then((res) => res.json())
       .then((data) => setProducts(data));
   }, []);
+*/
+
+  useEffect(() => {
+    async function fetchData() {
+      const response = await fetch(
+        `http://localhost:5000/products?page=${currentPage}&limit=${productsPerPage}`
+      );
+      const data = await response.json();
+      setProducts(data);
+    }
+    fetchData();
+  }, [currentPage, productsPerPage]);
 
   // to interact stored cart
   useEffect(() => {
@@ -97,7 +110,7 @@ const Shop = () => {
   };
 
   // onchange handler for dropdown
-  const options = [5, 10, 20];
+  const options = [5, 10, 15, 20];
   function handleSelectChange(event) {
     setProductsPerPage(parseInt(event.target.value));
     setCurrentPage(0);
@@ -132,7 +145,16 @@ const Shop = () => {
 
       {/* Pagination Button */}
       <div className="pagination">
-        <p>Current Page: {currentPage}</p>
+        <p>
+          Current Page:{" "}
+          <span style={{ color: "#ff9900", fontWeight: "bold" }}>
+            {currentPage}
+          </span>{" "}
+          and Products Per Page:{" "}
+          <span style={{ color: "#ff9900", fontWeight: "bold" }}>
+            {productsPerPage}
+          </span>
+        </p>
         <div>
           {pageNumbers.map((number) => (
             <button
