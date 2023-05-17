@@ -60,28 +60,41 @@ const Shop = () => {
   // to interact stored cart
   useEffect(() => {
     const storedCart = getShoppingCart();
+    const ids = Object.keys(storedCart);
 
-    //step 5
-    const savedCart = [];
+    fetch(`http://localhost:5000/productsByIds`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(ids),
+    })
+      .then((res) => res.json())
+      .then((cartProducts) => {
+        //step 5
+        const savedCart = [];
 
-    // step 1: get id by looping
-    for (const id in storedCart) {
-      // step 2: get the product using id by find()
-      const addedProduct = products.find((product) => product._id === id);
-      console.log(addedProduct);
+        // step 1: get id by looping
+        for (const id in storedCart) {
+          // step 2: get the product using id by find()
+          const addedProduct = cartProducts.find(
+            (product) => product._id === id
+          );
+          console.log(addedProduct);
 
-      // step 3: get quantity of the product
-      if (addedProduct) {
-        const quantity = storedCart[id];
-        addedProduct.quantity = quantity;
+          // step 3: get quantity of the product
+          if (addedProduct) {
+            const quantity = storedCart[id];
+            addedProduct.quantity = quantity;
 
-        // step 4: add the added product to the save cart
-        savedCart.push(addedProduct);
-      }
-    }
-    // step 5: set the cart
-    setCart(savedCart);
-  }, [products]); // set dependency
+            // step 4: add the added product to the save cart
+            savedCart.push(addedProduct);
+          }
+        }
+        // step 5: set the cart
+        setCart(savedCart);
+      });
+  }, []); // set dependency
 
   // event handler
   const handleAddToCart = (product) => {
